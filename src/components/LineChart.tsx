@@ -176,7 +176,7 @@ export function LineChart(props: lineChartProps) {
       .style("font-size", 19)
       // .attr("y", 30)
       .attr("transform", "translate(-30," + height / 4 + ")rotate(-90)")
-      .attr("fill", "black")
+      .attr("fill", "var(--purple)")
       .text("Temperatura");
 
     //Y Precipitation
@@ -189,7 +189,7 @@ export function LineChart(props: lineChartProps) {
       .style("font-size", 19)
       // .attr("y", 40)
       .attr("transform", "translate(45," + height / 2 + ")rotate(-90)")
-      .attr("fill", "black")
+      .attr("fill", "var(--orage)")
       .text("Precipitation");
 
     //Min temperatura
@@ -199,9 +199,9 @@ export function LineChart(props: lineChartProps) {
         .attr("x", xScale(minTemperature.year))
         .attr("width", 3)
         .attr("height", height)
-        .attr("stroke", "black")
+        // .attr("stroke", "black")
         .style("fill", "var(--blue-light)")
-        .style("fill-opacity", 0.15);
+        .style("fill-opacity", 0.2);
 
   
       //Max temperatura
@@ -210,7 +210,7 @@ export function LineChart(props: lineChartProps) {
         .attr("x", xScale(maxTemperature.year))
         .attr("width", 3)
         .attr("height", height)
-        .attr("stroke", "black")
+        // .attr("stroke", "black")
         .style("fill", "var(--red-dark)")
         .style("fill-opacity", 0.3);
     }
