@@ -1,4 +1,4 @@
-export const countryData = [
+export default [
   {
     id: "BRA",
     iso2Code: "BR",

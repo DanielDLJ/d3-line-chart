@@ -1,4 +1,4 @@
-export const precipitationData = [
+export default [
   {
     year: 1901,
     data: 147.83461

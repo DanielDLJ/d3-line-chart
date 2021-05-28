@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import styles from "../styles/components/LineChart.module.css";
+import precipitationDataStatic from "../constants/precipitationData"
+import temperatureDataStatic from "../constants/temperatureData"
 import axios from "axios";
 
 interface climateWebData {
@@ -45,6 +47,8 @@ export function LineChart(props: lineChartProps) {
     ]
     Promise.all(promiseArray).then(values => {
       formatData({temperature: values[0].data, precipitation: values[1].data})
+    }).catch(error=> {
+      formatData({temperature: temperatureDataStatic, precipitation: precipitationDataStatic})
     });
   }
 

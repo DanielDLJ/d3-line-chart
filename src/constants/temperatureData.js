@@ -1,4 +1,4 @@
-export const temperatureData = [
+export default [
   {
     year: 1901,
     data: 24.896547

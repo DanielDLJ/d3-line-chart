@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import styles from "../styles/components/CountryInformation.module.css";
+import countryDataStatic from "../constants/countryData"
 
 interface countryDataType {
   id: string;
@@ -45,7 +46,7 @@ export function TableCountryInformation() {
         setCountry(result.data[1][0]);
       }
     } catch (error) {
-      console.log(error);
+      setCountry(countryDataStatic[0]);
     }
   }
   useEffect(() => {
