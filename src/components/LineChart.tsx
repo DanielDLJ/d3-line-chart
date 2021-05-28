@@ -31,6 +31,13 @@ export function LineChart(props: lineChartProps) {
   let width = props.width;
   let height = props.height;
 
+  let tooltip ;
+  let tooltipLine
+  let states, tipBox;
+
+  var xScale;
+  var svg;
+
   useEffect(()=>{
     getAllData()
   },[])
@@ -92,7 +99,7 @@ export function LineChart(props: lineChartProps) {
 
 
     /* Scale */
-    var xScale = d3
+    xScale = d3
       .scaleTime()
       .domain(d3.extent(temperatureData, (d: climateWebData) => d.year))
       .range([0, width])
@@ -111,7 +118,7 @@ export function LineChart(props: lineChartProps) {
     //remove Old
     d3.select("svg").remove();
     //create new
-    var svg = d3
+    svg = d3
       .select("#chart")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -145,6 +152,18 @@ export function LineChart(props: lineChartProps) {
       .attr("d", linePrecipitation)
       .style("stroke", "var(--orage)")
       .style("opacity", lineOpacity);
+    /* */
+    tipBox = svg
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('opacity', 0)
+      .on('mousemove', (event: Event)=>drawTooltip(event))
+      .on('mouseout', removeTooltip)
+
+
+    tooltipLine = svg.append('line');
+    tooltip = d3.select('#tooltip');
 
     /* Add Axis into SVG */
     var xAxis = d3.axisBottom(xScale);
@@ -215,6 +234,23 @@ export function LineChart(props: lineChartProps) {
         .style("fill-opacity", 0.3);
     }
 
+  }
+
+  function removeTooltip() {
+    if (tooltip) tooltip.style('display', 'none');
+    if (tooltipLine) tooltipLine.attr('stroke', 'none');
+  }
+  
+  function drawTooltip(event: Event) {
+    const year = xScale.invert(d3.pointer(event)[0])
+    let auxTemperatureData = temperatureData.filter(fitem => (fitem.year as Date).getFullYear() === year.getFullYear())
+    let auxPrecipitationData = precipitationData.filter(fitem => (fitem.year as Date).getFullYear() === year.getFullYear())
+
+    tooltipLine.attr('stroke', 'black')
+      .attr('x1', xScale(year))
+      .attr('x2', xScale(year))
+      .attr('y1', 0)
+      .attr('y2', height);
   }
 
   return (
